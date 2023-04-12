@@ -10,9 +10,12 @@ import 'package:ecommerce_admin/pages/report_page.dart';
 import 'package:ecommerce_admin/pages/settings_page.dart';
 import 'package:ecommerce_admin/pages/user_list_page.dart';
 import 'package:ecommerce_admin/pages/view_product_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
