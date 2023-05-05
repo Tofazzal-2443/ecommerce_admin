@@ -45,6 +45,9 @@ dependencies:
   cached_network_image:
   flutter_easyloading:
   connectivity_plus:
+  firebase_messaging:
+  flutter_local_notifications:
+  firebase_analytics:
 
 dev_dependencies:
   flutter_test:
