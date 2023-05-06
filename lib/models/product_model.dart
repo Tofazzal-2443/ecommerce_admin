@@ -1,30 +1,35 @@
+import 'package:ecommerce_admin/models/category_model.dart';
+import 'package:ecommerce_admin/models/image_model.dart';
+
 const String collectionProduct = 'Products';
-const String productFieldId = 'ProductId';
-const String productFieldName = 'ProductName';
-const String productFieldCategory = 'category';
-const String productFieldShortDescription = 'shortDescription';
-const String productFieldLongDescription = 'longDescription';
-const String productFieldSalePrice = 'salePrice';
-const String productFieldStock = 'stock';
-const String productFieldDiscount = 'discount';
-const String productFieldThumbnail = 'thumbnail';
-const String productFieldImages = 'images';
-const String productFieldAvailable = 'available';
-const String productFieldFeatured = 'featured';
+const String productFieldId = 'productId';
+const String productFieldName = 'productName';
+const String productFieldCategory = 'productCategory';
+const String productFieldShortDescription = 'productShortDescription';
+const String productFieldLongDescription = 'productLongDescription';
+const String productFieldSalePrice = 'productSalePrice';
+const String productFieldStock = 'productStock';
+const String productFieldDiscount = 'productDiscount';
+const String productFieldThumbnailImageUrl = 'productThumbnailImageUrl';
+const String productFieldAdditionalImages = 'productAdditionalImages';
+const String productFieldAvailable = 'productAvailable';
+const String productFieldFeatured = 'productFeatured';
+const String productFieldAvgRating = 'avgRating';
 
 class ProductModel {
   String? productId;
   String productName;
-  String category;
+  CategoryModel category;
   String? shortDescription;
   String? longDescription;
   num salePrice;
   num stock;
   num productDiscount;
-  String thumbnailImageUrl;
-  List<String>? additionalImages;
+  ImageModel thumbnailImageModel;
+  List<String> additionalImageModels;
   bool available;
   bool featured;
+  num avgRating;
 
   ProductModel({
     this.productId,
@@ -34,9 +39,10 @@ class ProductModel {
     this.longDescription,
     required this.salePrice,
     required this.stock,
-    this.productDiscount = 0,
-    required this.thumbnailImageUrl,
-    this.additionalImages,
+    this.avgRating = 0.0,
+    required this.productDiscount,
+    required this.thumbnailImageModel,
+    required this.additionalImageModels,
     this.available = true,
     this.featured = false,
   });
@@ -45,33 +51,33 @@ class ProductModel {
     return <String, dynamic>{
       productFieldId: productId,
       productFieldName: productName,
-      productFieldCategory: category,
+      productFieldCategory: category.toMap(),
       productFieldShortDescription: shortDescription,
       productFieldLongDescription: longDescription,
-      productFieldDiscount: productDiscount,
       productFieldSalePrice: salePrice,
       productFieldStock: stock,
-      productFieldThumbnail: thumbnailImageUrl,
-      productFieldImages: additionalImages,
+      productFieldAvgRating: avgRating,
+      productFieldDiscount: productDiscount,
+      productFieldThumbnailImageUrl: thumbnailImageModel.toMap(),
+      productFieldAdditionalImages: additionalImageModels,
       productFieldAvailable: available,
       productFieldFeatured: featured,
     };
   }
 
   factory ProductModel.fromMap(Map<String, dynamic> map) => ProductModel(
-        productId: map[productFieldId],
-        productName: map[productFieldName],
-        category: map[productFieldCategory],
-        shortDescription: map[productFieldShortDescription],
-        longDescription: map[productFieldLongDescription],
-        salePrice: map[productFieldSalePrice],
-        stock: map[productFieldStock],
-        productDiscount: map[productFieldDiscount],
-        thumbnailImageUrl: map[productFieldThumbnail],
-        additionalImages: map[productFieldImages] != null
-            ? map[productFieldImages] as List<String>
-            : null,
-        available: map[productFieldAvailable],
-        featured: map[productFieldFeatured],
-      );
+    productId: map[productFieldId],
+    productName: map[productFieldName],
+    category: CategoryModel.fromMap(map[productFieldCategory]),
+    shortDescription: map[productFieldShortDescription],
+    longDescription: map[productFieldLongDescription],
+    salePrice: map[productFieldSalePrice],
+    stock: map[productFieldStock],
+    avgRating: map[productFieldAvgRating],
+    productDiscount: map[productFieldDiscount],
+    thumbnailImageModel: ImageModel.fromMap(map[productFieldThumbnailImageUrl]),
+    additionalImageModels: (map[productFieldAdditionalImages] as List).map((e) => e as String).toList(),
+    available: map[productFieldAvailable],
+    featured: map[productFieldFeatured],
+  );
 }
