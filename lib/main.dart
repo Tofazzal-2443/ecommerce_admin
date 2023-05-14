@@ -18,6 +18,7 @@ import 'package:ecommerce_admin/providers/product_provider.dart';
 import 'package:ecommerce_admin/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -28,7 +29,8 @@ void main() async {
     ChangeNotifierProvider(create: (_) => OrderProvider()),
     ChangeNotifierProvider(create: (_) => UserProvider()),
     ChangeNotifierProvider(create: (_) => NotificationProvider()),
-  ]));
+  ],
+    child: const MyApp(),));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,6 +42,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      builder: EasyLoading.init(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
